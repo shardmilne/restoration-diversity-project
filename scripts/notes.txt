@@ -1,0 +1,26 @@
+
+2022-03-01
+
+Wrote the clean_nursery_catalog.py script, which accepts a reference list of plants and a file (like a text document or CSV) and pulls out all the instances of the reference list items. Then it outputs it as a new file.
+In this case, I input a list of scientific names of WA plants and the text of a nursery catalog, and get a cleaned-up list of all the scientific names of WA plants which appear in the catalog.
+There are a few edge cases to deal with here:
+* Some species have changed genus and/or species names - need to add outdated names to reference list
+* Genus names are listed in addition to Genus + species names. Do I want to include those?
+* What if there's a typo in the catalog?
+
+And a few improvements to make:
+* Would like to actually get ALL the species names, not just the WA native plants. Then later, I can see which plant species are in the catalog but AREN'T on the WA native plants list.
+* Will need to update script to play nice with the USDA PLANTS Database
+
+Wrote the native-plant-availability.py script, which accepts the cleaned nursery catalog and a reference list of plants (in this case, WA native plants), and creates a new CSV which lists ALL the reference plants and which nurseries they can be found at. 
+
+Improvements to make:
+* Output a "discard bin" of plants which appeared in the nursery list but did NOT appear in the reference list.
+* Cross-reference to the NHP spreadsheet which includes information about growth form. Would like to find a dataset which includes a full plant list and its ecoregions for WA.
+
+Questions to answer:
+* What types/growth forms of species are being included/excluded from nursery lists?
+* What genera and/or families are being included/excluded?
+* What regions of the state are being included/excluded?
+
+In other words, how do we summarize what plants ARE represented, and what plants are NOT?
