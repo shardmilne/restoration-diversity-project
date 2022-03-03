@@ -5,13 +5,7 @@
 
 import sys
 
-### Take command-line arguments
-reference_file = sys.argv[1]
-messy_file = sys.argv[2]
-# reference_file = './wa-flora-scinames.csv'
-# messy_file = './PNW Nursery Catalogs - Burnt Ridge Nursery.csv'
-clean_file = messy_file[:-4] + "-CLEAN" + messy_file[-4:] # Add 'CLEAN' suffix before file type
-# print(clean_file)
+
 
 
 
@@ -31,9 +25,10 @@ def compare_and_clean(reference_list, messy_text):
 	# and outputs a list containing the taxa which appeared in the string and the list
 	clean_list = []
 	for species in reference_list:
-		if species in messy_text:
-			clean_list.append(species)
-			# print(species)
+		if species.lower() in messy_text.lower():
+			if species not in clean_list:
+				clean_list.append(species)
+				# print(species)
 	return clean_list
 
 def write_list_to_file(clean_list, filename):
@@ -43,23 +38,62 @@ def write_list_to_file(clean_list, filename):
 			f.write(item)
 			f.write("\n")
 
-
+def get_column(filename, colname):
+	# Given a QUOTE delimited file and a column header, outputs a list with the column contents
+	f = open(filename, "r").read()
+	f_lines = f.splitlines() # Get the database as a list of strings
+	i = 0
+	while i < len(f_lines):
+		f_lines[i] = f_lines[i].split('"')[1::2] # separate by capturing things BETWEEN quotation marks
+		i += 1
+	# Now we have a nice table (list of lists) to work with
+	i = 0
+	while i < len(f_lines[0]):
+		if f_lines[0][i] == colname:
+			# print("Found!")
+			break
+		else:
+			# print("Not found, searching...")
+			i += 1
+	# print(f_lines)
+	# print(len(f_lines))
+	# print(len(f_lines[0]))
+	# print(i)
+	col = []
+	for line in f_lines:
+		if len(line) >= i:
+			col.append(line[i])
+		else:
+			col.append("")
+		# Add the ith element of each line to col
+	return col
 ######
-
-######
-# Get a string for all species in WA, split into a list
-wa_species_list = read_file_to_string(reference_file).splitlines()
-# print(wa_species_list)
-
-# Get a single string containing the nursery catalog
-messy_catalog = read_file_to_string(messy_file)
+# Manually enter arguments
+# input_db = "../reference_lists/usda-plants-completeChecklist-CLEAN.csv"
+# desired_colname = "Scientific Name"
+# messy_file = "../nursery_catalogs/PNWNurseryCatalogs-BurntRidgeNursery.csv"
+# clean_filename = messy_file[:-4] + "-" + input_db.split("/")[-1][:-4] + "-CLEAN.csv"
 
 
-clean_catalog = compare_and_clean(wa_species_list, messy_catalog)
-# print("***")
-# print(clean_catalog)
+### Take command-line arguments
+input_db = sys.argv[1]
+desired_colname = sys.argv[2]
+messy_files = sys.argv[3:]
+# messy_files = open('./nurseries_to_process.txt',"r").read()
+# messy_files = messy_files.splitlines()
+
+for messy_file in messy_files:
+	clean_filename = messy_file[:-4] + "-" + input_db.split("/")[-1][:-4] + "-CLEAN.csv"
+	# print(clean_file)
 
 
-write_list_to_file(clean_catalog, clean_file)
-
-print("Output saved to ", clean_file)
+	print(clean_filename)
+	# Run it!!
+	# use get_column to extract the scientific names
+	complete_species_list = get_column(input_db, desired_colname)
+	# use read file to string to get messy nursery list
+	messy_catalog = read_file_to_string(messy_file)
+	# use compare and clean to get the CLEAN nursery plant list
+	clean_catalog = compare_and_clean(complete_species_list, messy_catalog)
+	# write list to file
+	write_list_to_file(clean_catalog, clean_filename)

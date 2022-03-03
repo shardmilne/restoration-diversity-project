@@ -1,0 +1,9 @@
+../nursery_catalogs/PNWNurseryCatalogs-PlantasNativaLLC.csv
+../nursery_catalogs/PNWNurseryCatalogs-PlantsoftheWild.csv
+../nursery_catalogs/PNWNurseryCatalogs-RainierSeeds.csv
+../nursery_catalogs/PNWNurseryCatalogs-SoundNativePlants.csv
+../nursery_catalogs/PNWNurseryCatalogs-StormLakeGrowers.csv
+../nursery_catalogs/PNWNurseryCatalogs-WabashFarms.csv
+../nursery_catalogs/PNWNurseryCatalogs-WACD.csv
+../nursery_catalogs/PNWNurseryCatalogs-WatershedGardenWorks.csv
+../nursery_catalogs/PNWNurseryCatalogs-WildlandsNursery.csv

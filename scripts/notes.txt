@@ -1,16 +1,50 @@
+2022-03-02
+
+Goal 1: write a parser for the USDA PLANTS list
+Needs to keep genus, species, "var"/variation names, "ssp"/subspecies names, "x" or hybrid names
+Needs to remove author names and/or initials, and author-related lowercase phrases "ex", "bis", etc.
+
+Goal 2: update clean_nursery_catalog.py to play nice with the USDA PLANTS list
+compare_and_clean should be able to work the same way
+need to make a function to extract scientific name from the correct column!
+OK, clean_nursery_catalog.py now works with a QUOTE delimited file, if you tell it the column name
+Not generalized to other files (IE CSV, TSV) yet.
+
+Goal 3: Make new clean nursery catalogs using USDA PLANTS list
+Done!
+
+Goal 4: Run native-plant-availability using new clean nursery catalogs.
+Done!
+
+Goal 5: Add a discard bin - a file which contains the list of plants available at nurseries, but NOT on the WA native species list (the WA Flora Checklist from DNR NHP)
+Done!
+
+Goal 6: Cross-reference the output plant list by nursery with the NHP spreadsheet
+Need to match the Sci Names in output list to Sci Names in NHP list, and get all the columns from both into a new file
+Done!
+(This script is also highly generalizable)
+
+Goal 7: Add more nursery catalogs to the dataset!
+	I now have a total of 23 nursery catalogs represented in the dataset - they are only the ones with accessible plant lists online.
+
+Initial findings with 23 nurseries:
+
+Total number of native species and infraspecies: 
 
 2022-03-01
 
 Wrote the clean_nursery_catalog.py script, which accepts a reference list of plants and a file (like a text document or CSV) and pulls out all the instances of the reference list items. Then it outputs it as a new file.
 In this case, I input a list of scientific names of WA plants and the text of a nursery catalog, and get a cleaned-up list of all the scientific names of WA plants which appear in the catalog.
 There are a few edge cases to deal with here:
-* Some species have changed genus and/or species names - need to add outdated names to reference list
-* Genus names are listed in addition to Genus + species names. Do I want to include those?
-* What if there's a typo in the catalog?
+* Some species have changed genus and/or species names - need to add outdated names to reference list?
+* Genus names are listed in addition to Genus + species names. Do I want to include those? -- YES, but check for duplicates before adding to final list.
+* What if there's a typo in the catalog? IDK man
 
 And a few improvements to make:
 * Would like to actually get ALL the species names, not just the WA native plants. Then later, I can see which plant species are in the catalog but AREN'T on the WA native plants list.
 * Will need to update script to play nice with the USDA PLANTS Database
+
+*********
 
 Wrote the native-plant-availability.py script, which accepts the cleaned nursery catalog and a reference list of plants (in this case, WA native plants), and creates a new CSV which lists ALL the reference plants and which nurseries they can be found at. 
 

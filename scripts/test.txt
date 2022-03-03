@@ -1,0 +1,6 @@
+"Symbol","Synonym Symbol","Scientific Name with Author","Common Name","Family"
+"ABAN","ABTO","Abronia torreyi Standl.","",""
+"ABAR","","Abronia argillosa S.L. Welsh & Goodrich","clay sand verbena","Nyctaginaceae"
+"ABAU","","Abutilon auritum (Wall. ex Link) Sweet","Asian Indian mallow","Malvaceae"
+"ABAU3","","Abroma augustum (L.) L. f.","devil's-cotton","Sterculiaceae"
+"ABAU3","ABAU2","Abroma augusta (L.) L. f., orth. var.","",""
